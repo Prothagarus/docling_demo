@@ -11,11 +11,7 @@ result = converter.convert(source_url)
 # Access structured data immediately
 doc = result.document
 
-print(doc.export_to_markdown())
 
-
-
-#CHUNKING EXAMPLES
 # %%
 from docling.chunking import HierarchicalChunker
 def print_chunk(chunk):
@@ -64,29 +60,15 @@ rag_chunks = list(chunker.chunk(doc))
 
 print(f"Created {len(rag_chunks)} intelligent chunks")
 
-#VECTOR STORE CREATION
+
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # Create embeddings
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
 # Create the vector store
 texts = [chunk.text for chunk in rag_chunks]
 vectorstore = FAISS.from_texts(texts, embeddings)
 
 print(f"Built vector store with {len(texts)} chunks")
-
-
-
-#RAGQUERY
-# %%
-query = "How does document processing work?"
-relevant_docs = vectorstore.similarity_search(query, k=3)
-
-print(f"Query: '{query}'")
-print(f"Found {len(relevant_docs)} relevant chunks:")
-
-for i, doc in enumerate(relevant_docs, 1):
-    print(f"\nResult {i}:")
-    print(f"Content: {doc.page_content[:150]}...")
-# %%

@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 
 from docling.datamodel.base_models import InputFormat
 from docling.document_converter import DocumentConverter, PdfFormatOption
-from docling.datamodel.pipeline_options import ApiVlmEngineOptions, VlmEngineType, VlmPipelineOptions, VlmConvertOptions
-from docling.datamodel.pipeline_options import VlmPipeline
+from docling.datamodel.pipeline_options import VlmPipelineOptions
+
 
 def check_and_pull_ollama_model(model_name: str) -> bool:
     """Check if model exists in Ollama and attempt to pull if not.
@@ -140,47 +140,47 @@ def run_ollama_example(input_doc_path: Path) -> bool:
 import logging
 from pathlib import Path
 
-def main():
-    logging.basicConfig(level=logging.INFO)
+# def main():
+#     logging.basicConfig(level=logging.INFO)
 
-    data_folder = Path(__file__).parent / "../../tests/data"
-    input_doc_path = data_folder / "pdf/2305.03393v1-pg9.pdf"
+#     data_folder = Path(__file__).parent / "../../tests/data"
+#     input_doc_path = data_folder / "pdf/2305.03393v1-pg9.pdf"
 
-    # Track which examples ran
-    results = {
-        "LM Studio": run_lmstudio_example(input_doc_path),
-        "Ollama": run_ollama_example(input_doc_path),
-        "VLLM": run_vllm_example(input_doc_path),
-        "watsonx.ai": run_watsonx_example(input_doc_path),
-    }
+#     # Track which examples ran
+#     results = {
+#         "LM Studio": run_lmstudio_example(input_doc_path),
+#         "Ollama": run_ollama_example(input_doc_path),
+#         "VLLM": run_vllm_example(input_doc_path),
+#         "watsonx.ai": run_watsonx_example(input_doc_path),
+#     }
 
-    # Print summary
-    print("\n" + "=" * 70)
-    print("SUMMARY")
-    print("=" * 70)
+#     # Print summary
+#     print("\n" + "=" * 70)
+#     print("SUMMARY")
+#     print("=" * 70)
 
-    ran = [name for name, success in results.items() if success]
-    skipped = [name for name, success in results.items() if not success]
+#     ran = [name for name, success in results.items() if success]
+#     skipped = [name for name, success in results.items() if not success]
 
-    if ran:
-        print(f"\n✓ Examples that ran successfully ({len(ran)}):")
-        for name in ran:
-            print(f"  - {name}")
+#     if ran:
+#         print(f"\n✓ Examples that ran successfully ({len(ran)}):")
+#         for name in ran:
+#             print(f"  - {name}")
 
-    if skipped:
-        print(f"\n⊘ Examples that were skipped ({len(skipped)}):")
-        for name in skipped:
-            reason = "Server not running"
-            if name == "watsonx.ai":
-                if os.environ.get("CI"):
-                    reason = "Running in CI environment"
-                else:
-                    reason = "Credentials not found (WX_API_KEY, WX_PROJECT_ID)"
-            print(f"  - {name}: {reason}")
+#     if skipped:
+#         print(f"\n⊘ Examples that were skipped ({len(skipped)}):")
+#         for name in skipped:
+#             reason = "Server not running"
+#             if name == "watsonx.ai":
+#                 if os.environ.get("CI"):
+#                     reason = "Running in CI environment"
+#                 else:
+#                     reason = "Credentials not found (WX_API_KEY, WX_PROJECT_ID)"
+#             print(f"  - {name}: {reason}")
 
-    print()
+#     print()
 
 
-if __name__ == "__main__":
-    main()
-# %%
+# if __name__ == "__main__":
+#     main()
+# # %%
