@@ -5,6 +5,15 @@ import pandas as pd
 from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import PdfFormatOption
 from docling.datamodel.base_models import InputFormat
+
+import requests
+from dotenv import load_dotenv
+
+from docling.datamodel.base_models import InputFormat
+from docling.document_converter import DocumentConverter, PdfFormatOption
+from docling.datamodel.pipeline_options import  VlmPipelineOptions
+
+
 #%%
 # Initialize converter with default settings
 converter = DocumentConverter()
@@ -157,10 +166,12 @@ from docling.datamodel.pipeline_options import PictureDescriptionVlmOptions
 pipeline_options = PdfPipelineOptions(
     do_picture_description=True,  # AI-generated image descriptions
     picture_description_options=PictureDescriptionVlmOptions(
-        repo_id="ibm-granite/granite-docling-258M",
+        repo_id="HuggingFaceTB/SmolVLM-256M-Instruct",
         prompt="Describe this picture. Be precise and concise.",
     ),
     generate_picture_images=True,
+    enable_parallel_processing=True,
+    do_table_structure=True
 )
 
 converter_enhanced = DocumentConverter(

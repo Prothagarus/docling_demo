@@ -15,6 +15,14 @@ dependencies = [
     "pandas",
     "requests",
     "uv",
+    "sentence-transformers",
+    "langchain-huggingface",
+    "faiss-cpu",
+    "ipywidgets",
+    "ipykernel",
+    "pip",
+    "nomic",
+    "hf_xet",
 ]
 
 [project.optional-dependencies]
