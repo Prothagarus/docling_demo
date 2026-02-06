@@ -1,0 +1,42 @@
+# pyproject.toml for docling_demo
+
+[project]
+name = "docling_demo"
+version = "0.1.0"
+description = "A CLI that scans PyPI dependencies for vulnerabilities"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "docling",
+    "langchain",
+    "langchain-community",
+    "langchain-ollama",
+    "python-dotenv",
+    "pandas",
+    "requests",
+    "uv",
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest>=9.0.2",
+    "pytest-xdist>=3.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = { find = { where = ["src"] } }
+
+# Use `uv` for dependency management and running scripts instead of pip directly.
+[tool.uv]
+managed = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-xdist>=3.8.0",
+]
